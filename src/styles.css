@@ -1,0 +1,88 @@
+* {
+    box-sizing: border-box;
+    /* border: 1px solid red; */
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    color: rgb(246, 246, 246);
+    background-color: rgb(49, 49, 49);
+}
+
+header {
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main {
+    padding: 24px;
+    flex: 1;
+}
+
+footer {
+    padding: 5px;
+    bottom: 0;
+    flex-shrink: 0;
+    background-color: rgb(151, 108, 226);
+    text-align: center;
+}
+/* ---------- */
+
+h1{
+    align-self: center;
+    text-align: center;
+}
+h2 {
+    align-self: center;
+    text-align: center;
+}
+
+/* #player-gameboard{
+    background-color: rgb(137, 232, 232);
+    width: 320px; 
+    height: 320px; 
+}
+
+#enemy-gameboard {
+    background-color: rgb(245, 128, 128);
+    width: 320px;
+    height: 320px; 
+} */
+.gameboards {
+    display: flex;
+    gap: 40px;
+    align-self: center;
+    justify-self: center;
+}
+
+.gameboard {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+    grid-template-rows: repeat(10, 30px);
+    gap: 2px;
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #4b4b4b;
+}
+
+.ship {
+    background-color: gray;
+}
+
+.hit {
+    background-color: red;
+}
+
+.miss {
+    background-color: blue;
+}

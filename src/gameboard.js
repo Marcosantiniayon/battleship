@@ -1,4 +1,4 @@
-const Ship = require("./ship");
+import { Ship } from "./ship.js";
 
 function Gameboard() {
   const ships = [];
@@ -12,36 +12,45 @@ function Gameboard() {
       //Set coordinates based on orientation
       let x = startX + (orientation === "horizontal" ? i : 0);
       let y = startY + (orientation === "vertical" ? i : 0);
-      coordinates.push({ x, y, ship });
+      coordinates.push({ x, y, ship, hit: false });
     }
 
     ships.push(...coordinates); //Push the ship & its coordinates to the ships array
   }
 
   function receiveAttack(x, y) { // Returns true or false depending on if ship gets hit
+    console.log(`Attacking coordinates: (${x}, ${y})`);
     const hitShip = ships.find((coord) => coord.x === x && coord.y === y);
     if (hitShip) {
-      hitShip.ship.hit();
+      hitShip.ship.hit(); 
+      console.log(`Hit at: (${x}, ${y})`);
       return true; // Hit
     } else {
       missedShots.push({ x, y });
+      console.log(`Miss at: (${x}, ${y})`);
       return false; // Miss
     }
   }
 
+  
   function allShipsSunk() {
-    return ships.every((coord) => coord.ship.isSunk()); // Returns true if all ships have sunk
+    const uniqueShips = new Set(ships.map((coord) => coord.ship));
+    return Array.from(uniqueShips).every((ship) => ship.isSunk());
   }
 
   function isShipAt(x, y) {
-    return ships.some((coord) => coord.x === x && coord.y === y); // Returns true if ship is located at the given coordinates
+    // Checks for & returns true if any ship has a part at (x, y)
+      return ships.some(coord => coord.x === x && coord.y === y);
   }
 
   function isHitAt(x, y) {
-    return ships.some(
-      (coord) => coord.x === x && coord.y === y && coord.ship.isSunk() === false // Returns true if ship is hit at the given cordinates but not yet sunk
-    );
-  }
+    const shipBox = ships.find((coord) => coord.x === x && coord.y === y); // Find the ship segment at the specified coordinates
+    if (shipBox) {
+      shipBox.ship.hit(); // Mark the ship as hit
+      return true; // Return true if the segment exists and is hit
+    }
+    return false; 
+  } 
 
   function isMissAt(x, y) {
     return missedShots.some((shot) => shot.x === x && shot.y === y); // Returns true if a coordinate is a missed shot
@@ -57,4 +66,4 @@ function Gameboard() {
   };
 }
 
-module.exports = Gameboard;
+export { Gameboard };

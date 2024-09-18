@@ -1,4 +1,4 @@
-const { Gameboard } = require("./gameboard");
+import { Gameboard } from "./gameboard.js";
 
 // A player has his/her own game board, and an attack (player or cpu)
 function Player(type) {    
@@ -21,4 +21,4 @@ function Player(type) {
   };
 }
 
-module.exports = Player;
+export { Player };
